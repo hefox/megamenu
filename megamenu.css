@@ -1,0 +1,10 @@
+.mega-menu > .menu > li {
+  display: inline;
+  padding: 0 3px 0 0 ;
+  list-style: none;
+}
+
+.mega-menu > .menu > li > .menu{
+  display: none;
+}
+

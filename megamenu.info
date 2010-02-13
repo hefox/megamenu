@@ -1,0 +1,7 @@
+name = Mega menu
+description = Mega menus
+package = Menus
+core = 6.x
+dependencies[] = jquery_update
+dependencies[] = menu_block
+dependencies[] = libraries

@@ -1,0 +1,67 @@
+<?php
+
+/* 
+sites/all/libaries/jquery-megamenu/javascripts/jquery.megamenu.js
+sites/all/libaries/jquery-megamenu/stylesheets/jquery.megamenu.css
+*/
+
+function megamenu_add_libaries() {
+  static $added = 0 ; 
+  if (!$added) {
+    $added = 1;
+    $path = drupal_get_path('module','megamenu');
+    drupal_add_css($path .'/megamenu.css');
+    drupal_add_js($path .'/megamenu.js');
+  }
+}
+
+function megamenu_block($op = 'list', $delta = 0, $edit = array()) {
+ switch($op) {
+    case 'list':
+       $info[0] = array('info' => t('Primary links Mega Menu'),
+    'weight' => -20);
+      break;
+    case 'view':
+        megamenu_add_libaries();
+        $context = array(
+          'delta' => 'mega-block-0 mega-menu',
+          'menu_name' => 'primary-links',
+          'parent_mlid' => 0,
+          'level' => 1,
+          'follow' => 0,
+          'depth' => 0,
+          'expanded' => 1,
+          'sort' => 0,
+          'titlelink'=> 1,
+            'megamenu'=> true,
+            'dhtml_disabled' => true,
+        );
+        $info =  menu_block_build($context);
+        beautytips_add_beautytips(array(
+          'bt_mega_menu'=>array(
+            'cssSelect'=>'.mega-menu > .menu > li.expanded a',
+            'contentSelector'=>"$(this).next().html()",
+            'spikeGirth' => 0,
+            'spikeLength'=>0,
+            'positions' => 'bottom',
+            'trigger' => array('mouseover','click'),
+            'cssClass' => 'bt-mega-menu',
+            'width' => 960,
+            'cssStyles' => array('width'=>'auto'),
+          )
+        ));
+    break;
+  }
+   if ($info) return $info;
+}
+function megamenu_menu_block_tree_alter(&$tree, $context) {
+  if ($context['dhtml_disabled']) megamenu_disable_dhtml(&$tree);
+}
+function megamenu_disable_dhtml(&$tree) {
+  if (is_array($tree)){
+    foreach($tree as $k => $info) {
+      if ($info['link']['mlid']) $tree[$k]['link']['dhtml_disabled'] = true; 
+      if ($info['below']) megamenu_disable_dhtml($tree[$k]['below']);
+    }  
+  }
+}
