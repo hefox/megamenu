@@ -1,8 +1,20 @@
 <?php
 
 /* 
-sites/all/libaries/jquery-megamenu/javascripts/jquery.megamenu.js
-sites/all/libaries/jquery-megamenu/stylesheets/jquery.megamenu.css
+
+        beautytips_add_beautytips(array(
+          'bt_mega_menu'=>array(
+            'cssSelect'=>'.mega-menu > .menu > li.expanded a',
+            'contentSelector'=>"$(this).next().html()",
+            'spikeGirth' => 0,
+            'spikeLength'=>0,
+            'positions' => 'bottom',
+            'trigger' => array('mouseover','click'),
+            'cssClass' => 'bt-mega-menu',
+            'width' => 960,
+            'cssStyles' => array('width'=>'auto'),
+          )
+        ));
 */
 
 function megamenu_add_libaries() {
@@ -37,19 +49,7 @@ function megamenu_block($op = 'list', $delta = 0, $edit = array()) {
             'dhtml_disabled' => true,
         );
         $info =  menu_block_build($context);
-        beautytips_add_beautytips(array(
-          'bt_mega_menu'=>array(
-            'cssSelect'=>'.mega-menu > .menu > li.expanded a',
-            'contentSelector'=>"$(this).next().html()",
-            'spikeGirth' => 0,
-            'spikeLength'=>0,
-            'positions' => 'bottom',
-            'trigger' => array('mouseover','click'),
-            'cssClass' => 'bt-mega-menu',
-            'width' => 960,
-            'cssStyles' => array('width'=>'auto'),
-          )
-        ));
+        beautytips_add_beautytips();
     break;
   }
    if ($info) return $info;
