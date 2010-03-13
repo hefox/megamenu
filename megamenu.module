@@ -48,7 +48,7 @@ function megamenu_block($op = 'list', $delta = 0, $edit = array()) {
             'megamenu'=> true,
             'dhtml_disabled' => true,
         );
-        $info =  menu_block_build($context);
+        $info =  menu_tree_build($context);
         beautytips_add_beautytips();
     break;
   }
